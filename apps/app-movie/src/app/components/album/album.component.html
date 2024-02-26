@@ -1,0 +1,110 @@
+  <section class="container py-1">
+  
+  </section>
+  <div class="album py-5 ">
+      <div class="container">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-5 g-3">
+          <div *ngFor="let items of listMovies" class="col">
+            <div class="card shadow-sm card-hover">
+              <img [src]="items.image"
+              class="bd-placeholder-img card-img-top" width="100%" height="280">
+              <div class="card-body">
+                <h5 class="card-title">{{items.name}}</h5>
+                <p class="card-text">{{items.description}}</p>
+                <div class="d-flex justify-content-between align-items-center">
+                  <small class="">{{items.time}}</small>
+                  <div class="btn-group">
+                    <button type="button" class="btn btn-sm btn-outline-info" data-bs-toggle="modal" data-bs-target="#showtimesModal" (click)="viewShowtimes(items.idMovie)">View</button>
+
+                    <button type="button" class="btn btn-sm btn-outline-warning"
+                    data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="selectItem(items)"> &nbsp; Edit &nbsp;</button>
+                    <button type="button" class="btn btn-sm btn-outline-danger" (click)="delete(items.idMovie)">Delete</button>
+                    
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  <div class="modal fade" id="exampleModal" tabindex="-1"
+    aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+          <div class="modal-header">
+
+              <h1 *ngIf="!isUpdate" class="modal-title fs-5">Add Movie</h1>
+              <h1 *ngIf="isUpdate" class="modal-title fs-5">Update Movie</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal"
+              aria-label="Close"></button>
+          </div>
+          <div class="modal-body ">
+              <form [formGroup]="formMovie">
+                  <div class="mb-3 row">
+                      <label class="col-sm-2 col-form-label">Name</label>
+                      <div class="col-sm-10">
+                          <input type="text" class="form-control btn-sm" formControlName="name">
+                      </div>
+
+                  </div>
+
+                  <div class="mb-3 row">
+                      <label class="col-sm-2 col-form-label">Info</label>
+                      <div class="col-sm-10">
+                          <input type="text" class="form-control btn-sm" formControlName="description">
+                      </div>
+
+                  </div>
+
+                  <div class="mb-3 row">
+                      <label class="col-sm-2 col-form-label">Time</label>
+                      <div class="col-sm-10">
+                          <input type="text" class="form-control btn-sm" formControlName="time">
+                      </div>
+                  </div>
+
+                  <div class="mb-3 row">
+                      <label class="col-sm-2 col-form-label">Image</label>
+                      <div class="col-sm-10">
+                          <input type="text" class="form-control btn-sm" formControlName="image">
+                      </div>
+                  </div>
+              </form>
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-danger btn-sm" *ngIf="!isUpdate" (click)="save()">Save</button>
+              <button type="button" class="btn btn-warning btn-sm" *ngIf="isUpdate" (click)="update()">Update</button>
+          </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Showtimes Modal -->
+  <div class="modal fade" id="showtimesModal" tabindex="-1" aria-labelledby="showtimesModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="showtimesModalLabel">Showtimes</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="showtimes-container">
+            <div *ngFor="let showtime of showtimes" class="showtime-item">
+              <div class="showtime-date">{{ showtime.date | date: 'EEEE, MMMM d' }}</div>
+              <div class="showtime-time">{{ showtime.time }}</div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button type="button" class="floating-add-button" data-bs-toggle="modal" 
+  data-bs-target="#exampleModal" (click)="newMovie()">+ Add</button>

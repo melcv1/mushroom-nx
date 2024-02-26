@@ -1,0 +1,23 @@
+# Use the official Node.js 20 image as a parent image
+FROM node:20
+
+# Set the working directory
+WORKDIR /app-movie
+
+# Install NX globally
+RUN npm install -g nx
+
+# Copy the package.json and package-lock.json (if available) from the root of the NX monorepo
+COPY package*.json ./
+
+# Install dependencies
+RUN npm install
+
+# Copy the rest of the backend application
+COPY . .
+
+# Build the application
+RUN nx build app-movie
+
+# Set the command to run the application
+CMD ["nx", "serve", "app-movie"]

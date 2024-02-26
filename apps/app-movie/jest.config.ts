@@ -1,7 +1,7 @@
 /* eslint-disable */
 export default {
   displayName: 'app-movie',
-  preset: '../../jest.preset.js',
+  
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   coverageDirectory: '../../coverage/apps/app-movie',
   transform: {

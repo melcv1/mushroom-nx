@@ -1,7 +1,7 @@
 {
   "name": "api-nest",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "apps/api-nest/src",
+  "sourceRoot": "apps/api-nest/src", 
   "projectType": "application",
   "targets": {
     "serve": {
@@ -18,6 +18,10 @@
           "buildTarget": "api-nest:build:production"
         }
       }
+    },
+    "docker-build": {
+      "dependsOn": ["build"],
+      "command": "docker build -f apps/api-nest/Dockerfile . -t api-nest"
     }
   },
   "tags": []

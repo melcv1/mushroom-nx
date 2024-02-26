@@ -1,0 +1,39 @@
+version: "3.8"
+services: 
+  mssql:
+    container_name: mssql
+    image: mcr.microsoft.com/azure-sql-edge
+    environment:
+      - MSSQL_DATABASE=ECU_MUSHROOM
+      - MSSQL_SA_PASSWORD=Hola123.
+      - ACCEPT_EULA=Y
+      - MSSQL_SCRIPT_FILE=/seed.sql
+    ports:
+      - 1433:1433
+    volumes:
+      - ./seed.sql:/seed.sql
+      - ./init-db.sh:/init-db.sh
+    command: 
+      - /bin/bash
+      - -c
+      - "/init-db.sh & /opt/mssql/bin/sqlservr"     
+  api-nest:
+    container_name: apii-nest
+    build:
+     dockerfile: ./apps/api-nest/Dockerfile
+    ports:
+      - "3000:3000" # Expose port 3000 to the host
+    volumes:
+      - /apps/api-nest/app # Mount the app directory inside the container
+    depends_on:
+      - mssql
+  app-movie:
+    container_name: appp-movie
+    build:
+      dockerfile: ./apps/app-movie/Dockerfile
+    ports:
+      - "4200:4200" # Expose port 4200 to the host
+    volumes:
+      - /apps/app-movie/app # Mount the app directory inside the container
+
+

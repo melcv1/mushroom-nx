@@ -1,0 +1,22 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            
+                    "name": "Launch my-nest-project",
+                    "request": "launch",
+                    "type": "node",
+                    "runtimeExecutable": "npx",
+                    "runtimeArgs": [
+                        "nx",
+                        "serve",
+                        "api-nest",
+                        "--inspect-brk"
+                    ],
+                    "console": "integratedTerminal"
+                    
+        
+        }
+
+    ]
+}
