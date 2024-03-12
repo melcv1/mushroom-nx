@@ -9,13 +9,13 @@ export class TypeormService implements TypeOrmOptionsFactory{
     createTypeOrmOptions(connectionName?: string): TypeOrmModuleOptions | Promise<TypeOrmModuleOptions> {
         return {
             type: 'mssql',
-            host: 'host.docker.internal',
+            host: 'host.docker.internal', //host.docker.internal. localhost
             username: 'SA',
             password: 'Hola123.',
             port: 1433,
             database: 'master',
             options: {
-                encrypt: false, // Add this line to disable strict SSL verification
+                encrypt: false, 
               },
               entities: [Movies, Showtimes]
         };
